@@ -19,15 +19,11 @@ class FT_EMOTE_API UWallControllerBaseState : public UObject
 {
 	GENERATED_BODY()
 
-protected:
-    UWallControllerBaseState() {}  // <- prevent unreal trying to creat this
-	virtual ~UWallControllerBaseState() {} // <- prevent unreal trying to creat this
-
 public:
 	// note to set to abstract i set the methods to 0, otherwise know as a pure virtual function, 
 	// which means that the derived class must implement these methods, otherwise it will also be abstract and cannot be instantiated.
-	virtual void EnterState() = 0;
-	virtual void ExitState() = 0;
-	virtual void UpdateState(float DeltaTime) = 0;
-	virtual void HandleState() = 0;
+	virtual void EnterState();
+	virtual void ExitState();
+	virtual void UpdateState(float DeltaTime);
+	virtual void HandleState();
 };
