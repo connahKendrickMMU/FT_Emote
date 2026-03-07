@@ -26,4 +26,5 @@ public:
 	virtual void ExitState();
 	virtual void UpdateState(float DeltaTime);
 	virtual void HandleState();
+	// for a player you might what to have functions to handle inputs
 };
