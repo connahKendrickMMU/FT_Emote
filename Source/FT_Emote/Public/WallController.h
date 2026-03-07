@@ -17,12 +17,14 @@ class FT_EMOTE_API AWallController : public AActor
 public:	
 	// Sets default values for this actor's properties
 	AWallController();
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WallControllerStates")
+	UPROPERTY(Instanced)
 	UWallControllerBaseState* CurrentState;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WallControllerStates")
+	UPROPERTY(Instanced)
 	UWallControllerBaseState* IdleState;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WallControllerStates")
-	UWallControllerBaseState* ActiveState;
+	UPROPERTY(Instanced)
+	UWallControllerBaseState* PlayState;
+	UPROPERTY(Instanced)
+	UWallControllerBaseState* PauseState;
 
 	// these enable the boxes to have a position and rotation
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WallControllerCollider")
@@ -49,5 +51,6 @@ public:
 	void StartGameTriggered(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 	UFUNCTION()
 	void EndGameTriggered(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
-
+	UFUNCTION()
+	void ChangeState(UWallControllerBaseState* NewState);
 };
