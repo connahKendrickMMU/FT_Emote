@@ -35,7 +35,7 @@ I also remove the IK for the foot floor attachment.
 ### Medium
 - Allow the player to move slowly during the emote for slight position correct.
 - Using the record of number of walls survived, increase the speed, resetting when players lose.
-- Using the record of number of walls survived, descrease the pause phase, resetting when players lose.
+- Using the record of number of walls survived, decrease the pause phase, resetting when players lose.
 
 ### Hard 
 - Try creating your own animation and binding it to the player with a new wall using just a basic blueprint.
