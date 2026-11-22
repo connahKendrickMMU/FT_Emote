@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "WallControllerBaseState.h"
-#include "MyWallControllerBaseState_PAUSE.generated.h"
+#include "WallControllerBaseState_PAUSE.generated.h"
 
 /**
  * This is a simple state we simply allow a small break between spawns, but this could be tailored
@@ -12,7 +12,7 @@
  * Score tracking, and general difficulty modifications
  */
 UCLASS()
-class FT_EMOTE_API UMyWallControllerBaseState_PAUSE : public UWallControllerBaseState
+class FT_EMOTE_API UWallControllerBaseState_PAUSE : public UWallControllerBaseState
 {
 	GENERATED_BODY()
 public:
@@ -21,6 +21,6 @@ public:
 	virtual void UpdateState(float DeltaTime) override;
 	virtual void HandleState() override;
 private:
-	int Delay = 5;
+	float Delay = 5.f;
 	float TimePassed = 0;
 };

@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "WallControllerBaseState.h"
-#include "MyWallControllerBaseState_PLAY.generated.h"
+#include "WallControllerBaseState_PLAY.generated.h"
 
 /**
  * This handles the spawning, movements and despawning of the walls
@@ -15,7 +15,7 @@
  * Exit cleans up the model
  */
 UCLASS()
-class FT_EMOTE_API UMyWallControllerBaseState_PLAY : public UWallControllerBaseState
+class FT_EMOTE_API UWallControllerBaseState_PLAY : public UWallControllerBaseState
 {
 	GENERATED_BODY()
 public:

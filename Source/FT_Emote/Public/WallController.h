@@ -40,6 +40,18 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WallControllerWalls")
 	TArray<TSubclassOf<class AActor>> WallsToControl;
 
+	// how far in front of the controller the wall spawns, walls travel back towards the controller (-Y)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WallControllerWalls")
+	float SpawnDistance = 800.f;
+
+	// if true we trace down from the spawn point and place the wall on the floor
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WallControllerWalls")
+	bool bSnapToGround = true;
+
+	// nudge the wall up or down after placing it, useful if a wall's pivot is not at its base
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WallControllerWalls")
+	float SpawnHeightOffset = 0.f;
+
 	UPROPERTY()
 	AActor* CurrentWall;
 

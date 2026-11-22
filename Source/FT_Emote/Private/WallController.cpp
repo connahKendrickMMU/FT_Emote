@@ -3,8 +3,8 @@
 
 #include "WallController.h"
 #include "WallControllerBaseState_IDLE.h"
-#include "MyWallControllerBaseState_PLAY.h"// saw the my too late
-#include "MyWallControllerBaseState_PAUSE.h"
+#include "WallControllerBaseState_PLAY.h"
+#include "WallControllerBaseState_PAUSE.h"
 // Sets default values
 AWallController::AWallController()
 {
@@ -51,12 +51,12 @@ void AWallController::BeginPlay()
 	}
 	if (!PlayState)
 	{
-		PlayState = NewObject<UMyWallControllerBaseState_PLAY>(this);
+		PlayState = NewObject<UWallControllerBaseState_PLAY>(this);
 		PlayState->SetController(this);
 	}
 	if (!PauseState)
 	{
-		PauseState = NewObject<UMyWallControllerBaseState_PAUSE>(this);
+		PauseState = NewObject<UWallControllerBaseState_PAUSE>(this);
 		PauseState->SetController(this);
 	}
 	CurrentState = IdleState;
@@ -112,6 +112,8 @@ void AWallController::ChangeState(UWallControllerBaseState* NewState)
 
 void AWallController::CreateWall()
 {
+	// RandRange(0, -1) would read outside the array if no walls are assigned
+	if (WallsToControl.IsEmpty()) return;
 
 	TSubclassOf<AActor> WallClass = WallsToControl[FMath::RandRange(0, WallsToControl.Num() - 1)]; // get random wall
 
@@ -123,8 +125,22 @@ void AWallController::CreateWall()
 		Params.SpawnCollisionHandlingOverride =
 			ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
 		FVector SpawnPos = StartPos->GetComponentLocation();
-		SpawnPos.Y += 300;
-		SpawnPos.Z -= 50;
+		SpawnPos.Y += SpawnDistance;
+
+		if (bSnapToGround)
+		{
+			// trace straight down for static geometry only, so we hit the floor and not the player
+			FHitResult Hit;
+			FCollisionQueryParams QueryParams;
+			QueryParams.AddIgnoredActor(this);
+			const FVector TraceStart = SpawnPos + FVector(0.f, 0.f, 500.f);
+			const FVector TraceEnd = SpawnPos - FVector(0.f, 0.f, 2000.f);
+			if (GetWorld()->LineTraceSingleByObjectType(Hit, TraceStart, TraceEnd, FCollisionObjectQueryParams(ECC_WorldStatic), QueryParams))
+			{
+				SpawnPos.Z = Hit.ImpactPoint.Z;
+			}
+		}
+		SpawnPos.Z += SpawnHeightOffset;
 		CurrentWall = GetWorld()->SpawnActor<AActor>(
 			WallClass,
 			SpawnPos,
