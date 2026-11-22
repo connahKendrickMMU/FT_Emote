@@ -28,9 +28,9 @@ I also remove the IK for the foot floor attachment.
 ## Challenges
 
 ### Easy
-- Loop the montages so they don't end until the player moves.
-- Record the number of walls in a row the Player have survived, in one go.
-- Ensure a different wall spawns each time (same wall wont appear twice in a row).
+- Loop the montages so they don't end until the player moves (See **Emote** in **FT_EmoteCharacter.cpp**, montages are split into sections) a guide can be found [here](Solutions/FT_Emote_Easy1_LoopEmotes.docx)
+- Record the number of walls in a row the player has survived, in one go (The PLAY state already knows when a wall has passed, see **WallControllerBaseState_PLAY.cpp**) a guide is [here](Solutions/FT_Emote_Easy2_WallStreak.docx)
+- Ensure a different wall spawns each time, so the same wall won't appear twice in a row (See **CreateWall** in **WallController.cpp**) a guide is [here](Solutions/FT_Emote_Easy3_NoRepeatWalls.docx)
 
 ### Medium
 - Allow the player to move slowly during the emote for slight position correct.
